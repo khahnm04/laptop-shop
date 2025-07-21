@@ -1,9 +1,12 @@
 package com.projects.laptopshop.controller;
 
+import com.projects.laptopshop.domain.User;
 import com.projects.laptopshop.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
@@ -26,10 +29,17 @@ public class UserController {
 
     @GetMapping("/admin/user")
     public String getUserPage(Model model) {
-        String test = this.userService.handleHello();
-        model.addAttribute("test", test);
-        model.addAttribute("value", "from controller with model");
+        model.addAttribute("newUser", new User());
         return "admin/user/create";
+    }
+
+    @PostMapping("/admin/user/create1")
+    public String createUserPage(
+        Model model,
+        @ModelAttribute("newUser") User user
+    ) {
+        System.out.println(">>>>> run here " + user);
+        return "hello";
     }
 
 }
