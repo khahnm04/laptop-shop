@@ -1,6 +1,7 @@
 package com.projects.laptopshop.controller;
 
 import com.projects.laptopshop.domain.User;
+import com.projects.laptopshop.repository.UserRepository;
 import com.projects.laptopshop.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(
         UserService userService
@@ -21,8 +22,7 @@ public class UserController {
 
     @GetMapping("/")
     public String getHomePage(Model model) {
-        String test = this.userService.handleHello();
-        model.addAttribute("value1", test);
+        model.addAttribute("value1", "test");
         model.addAttribute("value2", "from controller with model");
         return "hello";
     }
@@ -39,6 +39,7 @@ public class UserController {
         @ModelAttribute("newUser") User user
     ) {
         System.out.println(">>>>> run here " + user);
+        this.userService.handleSaveUser(user);
         return "hello";
     }
 
