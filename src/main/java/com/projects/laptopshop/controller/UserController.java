@@ -31,6 +31,8 @@ public class UserController {
 
     @GetMapping("/admin/user")
     public String getUserPage(Model model) {
+        List<User> users = this.userService.getAllUsers();
+        model.addAttribute("users1", users);
         return "/admin/user/table-user";
     }
 
@@ -42,9 +44,9 @@ public class UserController {
 
     @PostMapping("/admin/user/create")
     public String createUserPage(Model model, @ModelAttribute("newUser") User user) {
-        System.out.println(">>>>> run here " + user);
+        // @ModelAttribute("newUser") liên kết với modelAttribute="newUser" trong form.
         this.userService.handleSaveUser(user);
-        return "hello";
+        return "redirect:/admin/user";
     }
 
 }
