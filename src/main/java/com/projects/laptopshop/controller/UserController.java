@@ -4,10 +4,7 @@ import com.projects.laptopshop.domain.User;
 import com.projects.laptopshop.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,8 +36,8 @@ public class UserController {
 
     @GetMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
-        System.out.println("CHECK id : " + id);
-
+        User user = this.userService.getUserById(id);
+        model.addAttribute("user", user);
         model.addAttribute("id", id);
         return "/admin/user/show";
     }
@@ -56,6 +53,13 @@ public class UserController {
         // @ModelAttribute("newUser") liên kết với modelAttribute="newUser" trong form.
         this.userService.handleSaveUser(user);
         return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/user/update/{id}")
+    public String getUpdateUserPage(Model model, @PathVariable long id) {
+        User currentUser = this.userService.getUserById(id);
+        model.addAttribute("newUser", currentUser);
+        return "/admin/user/update";
     }
 
 }
