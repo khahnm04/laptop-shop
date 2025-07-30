@@ -21,7 +21,6 @@ public class UserController {
     public String getHomePage(Model model) {
         List<User> users = this.userService.getAllUsersByEmail("khanhnguyen@gmail.com");
         System.out.println(users);
-
         model.addAttribute("value1", "test");
         model.addAttribute("value2", "from controller with model");
         return "hello";
@@ -73,6 +72,19 @@ public class UserController {
             currentUser.setPhone(user.getPhone());
             this.userService.handleSaveUser(currentUser);
         }
+        return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/user/delete/{id}")
+    public String getDeleteUserPage(Model model, @PathVariable long id) {
+        model.addAttribute("id", id);
+        model.addAttribute("newUser", new User());
+        return "/admin/user/delete";
+    }
+
+    @PostMapping("/admin/user/delete")
+    public String postDeleteUser(Model model, @ModelAttribute("newUser") User user) {
+        this.userService.deleteAUser(user.getId());
         return "redirect:/admin/user";
     }
 
