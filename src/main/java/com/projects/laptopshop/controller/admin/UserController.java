@@ -1,20 +1,32 @@
-package com.projects.laptopshop.controller;
+package com.projects.laptopshop.controller.admin;
 
 import com.projects.laptopshop.domain.User;
+import com.projects.laptopshop.service.UploadService;
 import com.projects.laptopshop.service.UserService;
+import jakarta.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
+    private final UploadService uploadService;
 
-    public UserController(UserService userService) {
+    public UserController(
+        UserService userService,
+        UploadService uploadService
+    ) {
         this.userService = userService;
+        this.uploadService = uploadService;
     }
 
     @GetMapping("/")
@@ -30,7 +42,7 @@ public class UserController {
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("users1", users);
-        return "/admin/user/table-user";
+        return "/admin/user/show";
     }
 
     @GetMapping("/admin/user/{id}")
@@ -38,7 +50,7 @@ public class UserController {
         User user = this.userService.getUserById(id);
         model.addAttribute("user", user);
         model.addAttribute("id", id);
-        return "/admin/user/show";
+        return "/admin/user/detail";
     }
 
     @GetMapping("/admin/user/create")
@@ -48,9 +60,13 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") User user) {
-        // @ModelAttribute("newUser") liên kết với modelAttribute="newUser" trong form.
-        this.userService.handleSaveUser(user);
+    public String createUserPage(
+        Model model, @ModelAttribute("newUser") User user,
+        @RequestParam("newFile") MultipartFile file
+    ) {
+        String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
+        System.out.println(avatar);
+        // this.userService.handleSaveUser(user);
         return "redirect:/admin/user";
     }
 
