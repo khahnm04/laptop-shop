@@ -3,7 +3,6 @@ package com.projects.laptopshop.controller.admin;
 import com.projects.laptopshop.domain.User;
 import com.projects.laptopshop.service.UploadService;
 import com.projects.laptopshop.service.UserService;
-import jakarta.servlet.ServletContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,14 +28,14 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/")
-    public String getHomePage(Model model) {
-        List<User> users = this.userService.getAllUsersByEmail("khanhnguyen@gmail.com");
-        System.out.println(users);
-        model.addAttribute("value1", "test");
-        model.addAttribute("value2", "from controller with model");
-        return "hello";
-    }
+//    @GetMapping("/")
+//    public String getHomePage(Model model) {
+//        List<User> users = this.userService.getAllUsersByEmail("khanhnguyen@gmail.com");
+//        System.out.println(users);
+//        model.addAttribute("value1", "test");
+//        model.addAttribute("value2", "from controller with model");
+//        return "hello";
+//    }
 
     @GetMapping("/admin/user")
     public String getUserPage(Model model) {
