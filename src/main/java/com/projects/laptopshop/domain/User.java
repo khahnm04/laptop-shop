@@ -79,6 +79,14 @@ public class User {
         return role;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public void setRole(Role role) {
         this.role = role;
     }
