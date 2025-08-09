@@ -10,20 +10,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
         <meta name="author" content="Hỏi Dân IT" />
-        <title>Create Product - Hỏi Dân IT</title>
+        <title>Update Product - Hỏi Dân IT</title>
         <link href="/admin/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
           $(document).ready(() => {
             const avatarFile = $("#avatarFile");
+            const orgImage = "${newProduct.image}";
+
+            if (orgImage) {
+              const urlImage = "/admin/images/product/" + orgImage;
+              $("#avatarPreview").attr("src", urlImage);
+              $("#avatarPreview").css({ "display": "block" });
+            }
+
             avatarFile.change(function (e) {
               const imgURL = URL.createObjectURL(e.target.files[0]);
               $("#avatarPreview").attr("src", imgURL);
               $("#avatarPreview").css({ "display": "block" });
             });
           });
+
         </script>
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
       </head>
 
       <body class="sb-nav-fixed">
@@ -33,7 +42,7 @@
           <div id="layoutSidenav_content">
             <main>
               <div class="container-fluid px-4">
-                <h1 class="mt-4">Manager Users</h1>
+                <h1 class="mt-4">Manager Product</h1>
                 <ol class="breadcrumb mb-4">
                   <li class="breadcrumb-item">
                     <a href="/admin">Dashboard</a>
@@ -41,15 +50,17 @@
                   <li class="breadcrumb-item">
                     <a href="/admin/product">Product</a>
                   </li>
-                  <li class="breadcrumb-item active">Create</li>
+                  <li class="breadcrumb-item active">Update</li>
                 </ol>
                 <div class="mt-5">
                   <div class="row">
                     <div class="col-md-6 col-12 mx-auto">
-                      <h3>Create a Product</h3>
+                      <h3>Update a Product</h3>
                       <hr />
-                      <form:form method="post" action="/admin/product/create" modelAttribute="newProduct" class="row"
+                      <form:form method="post" action="/admin/product/update" modelAttribute="newProduct" class="row"
                         enctype="multipart/form-data">
+                        <!-- Hidden field để gửi id sản phẩm -->
+                        <form:input path="id" type="hidden" />
                         <c:set var="errorName">
                           <form:errors path="name" cssClass="invalid-feedback" />
                         </c:set>
@@ -119,13 +130,13 @@
                         <div class="mb-3 col-12 col-md-6">
                           <label for="avatarFile" class="form-label">Image:</label>
                           <input class="form-control" type="file" id="avatarFile" accept=".png, .jpg, .jpeg"
-                            name="hoidanitFile" />
+                            name="newFile" />
                         </div>
                         <div class="col-12 mb-3">
                           <img style="max-height: 250px; display: none;" alt="avatar preview" id="avatarPreview" />
                         </div>
                         <div class="col-12 mb-5">
-                          <button type="submit" class="btn btn-primary">Create</button>
+                          <button type="submit" class="btn btn-warning">Update</button>
                         </div>
                       </form:form>
                     </div>
