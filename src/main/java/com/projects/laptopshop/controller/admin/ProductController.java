@@ -31,13 +31,13 @@ public class ProductController {
     public String getProduct(Model model) {
         List<Product> products = this.productService.fetchProducts();
         model.addAttribute("products", products);
-        return "/admin/product/show";
+        return "admin/product/show";
     }
 
     @GetMapping("/admin/product/create")
     public String getCreateProductPage(Model model) {
         model.addAttribute("newProduct", new Product());
-        return "/admin/product/create";
+        return "admin/product/create";
     }
 
     @PostMapping("/admin/product/create")
@@ -48,7 +48,7 @@ public class ProductController {
     ) {
         // Nếu có lỗi thì quay lại trang create
         if (newProductBindingResult.hasErrors()) {
-            return "/admin/product/create";
+            return "admin/product/create";
         }
         // Upload image
         String image = this.uploadService.handleSaveUploadFile(file, "product");
@@ -72,7 +72,7 @@ public class ProductController {
     ) {
         // validate
         if (newProductBindingResult.hasErrors()) {
-            return "/admin/product/update";
+            return "admin/product/update";
         }
         Product currentProduct = this.productService.fetchProductById(product.getId()).get();
         if (currentProduct != null) {
@@ -97,7 +97,7 @@ public class ProductController {
     public String getDeleteProductPage(Model model, @PathVariable("id") long id) {
         model.addAttribute("id", id);
         model.addAttribute("newProduct", new Product());
-        return "/admin/product/delete";
+        return "admin/product/delete";
     }
 
     @PostMapping("/admin/product/delete")
