@@ -8,269 +8,323 @@
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>403 - Truy cập bị từ chối</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+        <title>403 Forbidden - Truy cập bị từ chối</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
         <style>
           :root {
-            --primary-color: #6C63FF;
-            --danger-color: #FF4D4D;
-            --dark-color: #2F2E41;
-            --light-color: #F9F9FF;
+            --color-primary: #4361ee;
+            --color-danger: #f72585;
+            --color-warning: #f8961e;
+            --color-success: #4cc9f0;
+            --color-dark: #212529;
+            --color-light: #f8f9fa;
+            --color-gray: #6c757d;
+            --gradient-primary: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            --gradient-danger: linear-gradient(135deg, #f72585 0%, #b5179e 100%);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --spacing-unit: 1rem;
           }
 
-          * {
+          *,
+          *::before,
+          *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
           }
 
           body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: var(--dark-color);
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7ff;
+            color: var(--color-dark);
+            line-height: 1.6;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: var(--spacing-unit);
+            position: relative;
             overflow-x: hidden;
-          }
-
-          .particle {
-            position: absolute;
-            background-color: rgba(108, 99, 255, 0.1);
-            border-radius: 50%;
-            z-index: -1;
           }
 
           .error-container {
             max-width: 800px;
             width: 100%;
-            padding: 3rem;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: calc(var(--spacing-unit) * 3);
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
             text-align: center;
             position: relative;
+            z-index: 10;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.3);
           }
 
           .error-container::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(108, 99, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
-            z-index: -1;
-            animation: rotate 20s linear infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--gradient-danger);
           }
 
-          .lock-icon {
+          .error-icon {
             font-size: 6rem;
-            margin-bottom: 1.5rem;
-            color: var(--danger-color);
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
+            color: var(--color-danger);
+            position: relative;
             display: inline-block;
-            animation: bounce 2s infinite;
           }
 
-          h1 {
+          .error-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: rgba(247, 37, 133, 0.1);
+            border-radius: 50%;
+            z-index: -1;
+          }
+
+          h1.error-code {
             font-size: 6rem;
-            margin: 0;
-            background: linear-gradient(45deg, var(--danger-color), #FF8E53);
+            font-weight: 700;
+            margin-bottom: calc(var(--spacing-unit) * 0.5);
+            background: var(--gradient-danger);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             line-height: 1;
-            margin-bottom: 0.5rem;
           }
 
-          h2 {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
+          h2.error-title {
+            font-size: 2rem;
             font-weight: 600;
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
+            color: var(--color-dark);
           }
 
-          p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 2.5rem;
-            color: #666;
+          p.error-message {
+            font-size: 1.125rem;
+            color: var(--color-gray);
+            margin-bottom: calc(var(--spacing-unit) * 2);
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
           }
 
-          .home-button {
+          .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-unit);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            flex-wrap: wrap;
+          }
+
+          .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(45deg, var(--primary-color), #8A78FF);
-            color: white;
+            padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 1.5);
+            border-radius: var(--border-radius);
+            font-weight: 500;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
-            position: relative;
-            overflow: hidden;
+            transition: var(--transition);
             border: none;
             cursor: pointer;
+            font-size: 1rem;
           }
 
-          .home-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(108, 99, 255, 0.4);
+          .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
           }
 
-          .home-button:active {
-            transform: translateY(1px);
+          .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
           }
 
-          .home-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
+          .btn-outline {
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
           }
 
-          .home-button:hover::before {
-            left: 100%;
+          .btn-outline:hover {
+            background: rgba(67, 97, 238, 0.1);
           }
 
           .error-details {
-            margin-top: 2rem;
-            padding: 1rem;
-            background-color: rgba(255, 77, 77, 0.1);
-            border-radius: 10px;
-            font-size: 0.9rem;
-            color: #666;
+            background-color: rgba(33, 37, 41, 0.05);
+            padding: calc(var(--spacing-unit) * 0.75);
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+            color: var(--color-gray);
             display: inline-block;
           }
 
-          @keyframes rotate {
-            0% {
-              transform: rotate(0deg);
-            }
-
-            100% {
-              transform: rotate(360deg);
-            }
+          .bg-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
           }
 
-          @keyframes bounce {
+          .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+          }
 
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-              transform: translateY(0);
-            }
+          .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--color-primary);
+            top: -100px;
+            right: -100px;
+          }
 
-            40% {
-              transform: translateY(-20px);
-            }
+          .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--color-danger);
+            bottom: -50px;
+            left: -50px;
+          }
 
-            60% {
-              transform: translateY(-10px);
-            }
+          .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: var(--color-warning);
+            top: 50%;
+            left: -75px;
           }
 
           @media (max-width: 768px) {
             .error-container {
-              padding: 2rem 1.5rem;
+              padding: calc(var(--spacing-unit) * 2);
             }
 
-            h1 {
+            h1.error-code {
               font-size: 4rem;
             }
 
-            h2 {
-              font-size: 1.8rem;
+            h2.error-title {
+              font-size: 1.5rem;
             }
 
-            p {
+            p.error-message {
               font-size: 1rem;
             }
+
+            .action-buttons {
+              flex-direction: column;
+              gap: calc(var(--spacing-unit) * 0.5);
+            }
+
+            .btn {
+              width: 100%;
+            }
+          }
+
+          /* Animation */
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+          }
+
+          .delay-1 {
+            animation-delay: 0.2s;
+          }
+
+          .delay-2 {
+            animation-delay: 0.4s;
+          }
+
+          .delay-3 {
+            animation-delay: 0.6s;
           }
         </style>
       </head>
 
       <body>
-        <div class="error-container animate__animated animate__fadeIn">
-          <div class="lock-icon">🔒</div>
-          <h1>403</h1>
-          <h2>Truy cập bị từ chối</h2>
-          <p>Xin lỗi, bạn không có quyền truy cập vào tài nguyên này. Nếu bạn cho rằng đây là lỗi hệ thống, vui lòng
-            liên hệ với bộ phận hỗ trợ.</p>
-          <a href="/" class="home-button animate__animated animate__pulse animate__infinite animate__slower">
-            <span>Quay lại trang chủ</span>
-          </a>
-          <div class="error-details animate__animated animate__fadeInUp animate__delay-1s">
-            Lỗi 403 - Forbidden | Truy cập bị từ chối
+        <div class="bg-shapes">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+        </div>
+
+        <div class="error-container">
+          <div class="error-icon animate-fade-in">
+            <i class="fas fa-ban"></i>
+          </div>
+          <h1 class="error-code animate-fade-in delay-1">403</h1>
+          <h2 class="error-title animate-fade-in delay-1">Truy cập bị từ chối</h2>
+          <p class="error-message animate-fade-in delay-2">
+            Bạn không có quyền truy cập vào tài nguyên này. Điều này có thể do hạn chế về quyền hoặc yêu cầu xác thực.
+          </p>
+
+          <div class="action-buttons animate-fade-in delay-2">
+            <a href="/" class="btn btn-primary">
+              <i class="fas fa-home mr-2" style="margin-right: 5px;"></i> Trang chủ
+            </a>
+          </div>
+
+          <div class="error-details animate-fade-in delay-3">
+            <i class="fas fa-info-circle mr-1"></i> HTTP 403 Forbidden • <span id="current-date"></span>
           </div>
         </div>
 
         <script>
-          // Tạo hiệu ứng particle
-          function createParticles() {
-            const colors = ['rgba(108, 99, 255, 0.2)', 'rgba(255, 77, 77, 0.2)', 'rgba(75, 192, 192, 0.2)'];
+          // Hiển thị ngày tháng hiện tại
+          document.getElementById('current-date').textContent = new Date().toLocaleDateString('vi-VN', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          });
 
-            for (let i = 0; i < 15; i++) {
-              const particle = document.createElement('div');
-              particle.classList.add('particle');
+          // Thêm class animation khi trang load
+          document.addEventListener('DOMContentLoaded', function () {
+            const elements = document.querySelectorAll('.animate-fade-in');
+            elements.forEach(el => {
+              el.style.opacity = '0';
+            });
 
-              // Kích thước ngẫu nhiên
-              const size = Math.random() * 100 + 50;
-              particle.style.width = `${size}px`;
-              particle.style.height = `${size}px`;
-
-              // Vị trí ngẫu nhiên
-              particle.style.left = `${Math.random() * 100}vw`;
-              particle.style.top = `${Math.random() * 100}vh`;
-
-              // Màu ngẫu nhiên
-              particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-
-              // Hiệu ứng di chuyển
-              const duration = Math.random() * 20 + 10;
-              particle.style.animation = `float ${duration}s linear infinite`;
-
-              document.body.appendChild(particle);
-            }
-          }
-
-          // Thêm animation float cho particle
-          const style = document.createElement('style');
-          style.innerHTML = `
-            @keyframes float {
-                0% {
-                    transform: translate(0, 0) rotate(0deg);
-                    opacity: 1;
-                }
-                100% {
-                    transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-        `;
-          document.head.appendChild(style);
-
-          // Khởi tạo particle khi trang load
-          window.addEventListener('load', createParticles);
+            setTimeout(() => {
+              elements.forEach(el => {
+                el.style.opacity = '1';
+              });
+            }, 100);
+          });
         </script>
       </body>
 
